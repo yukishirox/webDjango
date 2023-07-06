@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<!-- Hero Section -->
+<header class="row bg-black">
+</header>
+
+<!-- Porfolio Section -->
+<div class="row my-4 text-center">
+
+  <h3>Mis projectos</h3>
+  <p>Aqui puedes mirar mis projectos o enlaces de interes</p>
+</div>
+
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+
+                            
+
+{% endblock %}

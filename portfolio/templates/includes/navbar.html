@@ -1,0 +1,116 @@
+{% load static %}
+
+  <!-- header aca -->
+  <header class="header">
+    <div class="container-nav">
+      <div class="header-main">
+        <div class="logo">
+          <a href="{% url 'home_inicio' %}"><img src="{% static '/img/logosinfondo.png' %}"  alt=""></a>
+        </div>
+        <div class="open-nav-menu">
+          <span></span>
+        </div>
+        <div class="menu-overlay">
+        </div>
+        <!-- logo mas navegation empieza -->
+        <nav class="nav-menu">
+          <div class="close-nav-menu">
+            <img src="{% static 'img/close.svg' %}"  alt="close">
+          </div>
+
+          <ul class="menu"> <!-- menu navegacion opciones -->
+
+            <li class="menu-item menu-item-has-children">
+              <a href="#" data-toggle="sub-menu">Tiendas <i class="plus"></i></a>
+              <ul class="sub-menu">
+                <li class="menu-item"><a href="{% url 'tiendaRepuestos' %}">Repuestos</a></li>
+                <li class="menu-item"><a href="{% url 'tiendaVehiculos' %}">Vehiculos</a></li>
+              </ul>
+            </li>
+            
+            <li class="menu-item menu-item-has-children">
+              <a href="#" data-toggle="sub-menu">Categorias<i class="plus"></i></a>
+              <ul class="sub-menu">
+                {% for categoria in categorias %}
+								  
+								  
+                <li class="menu-item"><a href="{% url 'tiendaVehiculos_productos_por_categoria' categoria.slug %}">{{categoria.nombre}}</a></li>
+                {% endfor %}  
+              </ul>
+            </li>
+
+            
+            {% if not user.is_authenticated %}
+            <li class="menu-item">
+              <a href="{% url 'acceso_login' %}">Ingresar</a>
+            </li>
+            {% endif %}
+            <li href="{% url 'dash_base' %}" class="menu-item">
+              <!-- empieza carrito -->
+             
+            
+            
+            {% if user.is_authenticated %}
+            <li class="menu-item">
+              <a href="#"><i class="fas fa-solid fa-user-astronaut fa-lg" onclick="toggleMenu()"></i></a>
+              <div class="sub-menu-wrap" id="menusub">
+                <div class="sub-menu-usuario">
+                  
+                  <div class="user-info">
+                    <i class="fas fa-solid fa-user-astronaut fa-lg"></i>
+                    <h2>Hola, {{user.first_name | upper }}</h2>
+                  </div>
+                  <hr> 
+                 
+                    <a href="{% url 'dash_base' %}" class="sub-menu-link">
+                      <img src="{% static '/IMG/images/profile.png' %}"  alt="">
+                      <p>Perfil</p>
+                      <span>></span>
+                   
+                  </a>
+                  
+                  <a href="{% url 'dash_ordenes' %}" class="sub-menu-link">
+                    <img src="{% static '/IMG/images/profile.png' %}" alt="">
+                    <p>Ordenes</p>
+                    <span>></span>
+                  </a>
+
+                  <a href="{% url 'carro_inicio' %}" class="sub-menu-link">
+                    <img src="{% static '/IMG/images/carrito.png' %}" alt="">
+                    <p>carrito</p>
+                    <span>></span>
+                  </a>
+
+
+
+                  {% if user.is_superuser or user.is_staff %}
+                  <a href="{% url 'admin:index' %}" class="sub-menu-link">
+                    <img src="{% static '/IMG/images/setting.png' %}"  alt="">
+                    <p>Administración</p>
+                    <span>></span>
+                  </a>
+                  {% endif %}
+
+                  <a href="javascript:void(0);" class="sub-menu-link" onclick="salir('{% url 'acceso_salir' %}')">
+                    <img src="{% static '/IMG/images/logout.png' %}" alt="">
+                    <p>Cerrar sesión</p>
+                    <span>></span>
+                </a>
+                 
+
+                  {% endif %}
+                </div>
+              </div>
+            </li>
+
+
+          </ul>
+        </nav>
+        <!-- navigation menu end -->
+      </div>
+    </div>
+  </header>
+  <!-- header end -->
+
+
+  
